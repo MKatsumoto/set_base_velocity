@@ -7,6 +7,7 @@ SetBaseVelocity::SetBaseVelocity()
   state_sub_ = nh_.subscribe("state", 50, &SetBaseVelocity::stateCallback, this);
   point_cloud_sub_ = nh_.subscribe("cloud", 50, &SetBaseVelocity::pointCloudCallback, this);
   state_sub_ = nh_.subscribe("cmd_vel", 50, &SetBaseVelocity::commandVelocityCallback, this);
+  imu_sub_ = nh_.subscribe("imu/data", 50, &SetBaseVelocity::imuCallback, this);
   base_velocity_pub_ = nh_.advertise<gecko_msgs::BaseVelocity>("base_velocity", 50);
 
   // Get parameters

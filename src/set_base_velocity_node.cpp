@@ -9,7 +9,7 @@ int main(int argc, char** argv)
   int CONTROL_FREQUENCY;
   if(!nh.getParam("/control_frequency", CONTROL_FREQUENCY))
   {
-    ROS_ERROR("/control_frequency_hz is not defined!\n");
+    ROS_ERROR("/control_frequency is not defined!\n");
   }
   ros::Rate loop_rate_hz(CONTROL_FREQUENCY);
   SetBaseVelocity set_base_velocity;

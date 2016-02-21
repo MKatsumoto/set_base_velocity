@@ -28,7 +28,7 @@ public:
 
 private:
   ros::NodeHandle nh_;
-  ros::Subscriber state_sub_, point_cloud_sub_, command_vel_sub_;
+  ros::Subscriber state_sub_, point_cloud_sub_, command_vel_sub_, imu_sub_;
   ros::Publisher  base_velocity_pub_;
   ros::ServiceClient state_client_;
 
