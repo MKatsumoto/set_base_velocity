@@ -77,8 +77,7 @@ void SetBaseVelocity::pointCloudCallback(const sensor_msgs::PointCloud::ConstPtr
  */
 void SetBaseVelocity::commandVelocityCallback(const geometry_msgs::Twist::ConstPtr &msg)
 {
-  linear_velocity_ = msg->linear.x;
-  angular_velocity_ = msg->angular.z;
+  command_velocity_ = *msg;
 }
 
 

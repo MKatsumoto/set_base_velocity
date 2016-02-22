@@ -34,7 +34,7 @@ private:
 
   std::string state_;
   double front_distance_;
-  double linear_velocity_, angular_velocity_;
+  geometry_msgs::Twist command_velocity_;
   double roll_, pitch_, yaw_;
   double old_roll_, old_pitch_, old_yaw_;
   std::time_t now_;
@@ -52,10 +52,11 @@ private:
   void stateGetInfo();
   void stateLeaving();
   void stateTeleop();
+  // TODO: check /cmd_vel from /wall_follower_node
   inline void moveBase()
   {
-    base_velocity_.linear = static_cast<int16_t>(linear_velocity_ / (WHEEL_RADIUS_) * 100);
-    base_velocity_.angular = static_cast<int16_t>(angular_velocity_ / (WHEEL_RADIUS_) * 100);
+    base_velocity_.linear = static_cast<int8_t>(command_velocity_.linear.x);
+    base_velocity_.angular = static_cast<int8_t>(command_velocity_.angular.z);
   }
   inline void stopBase()
   {
