@@ -12,23 +12,26 @@
 #include <math.h>
 #include <time.h>
 #include "gecko_msgs/BaseVelocity.h"
+#include "dynamixel_msgs/JointState.h"
 #include "set_state/pubState.h"
 
 class SetBaseVelocity
 {
 public:
   SetBaseVelocity();
+  ~SetBaseVelocity();
   void computeBaseVelocity();
   // Callback function
   void stateCallback(const std_msgs::String::ConstPtr& msg);
   void pointCloudCallback(const sensor_msgs::PointCloud::ConstPtr& msg);
   void commandVelocityCallback(const geometry_msgs::Twist::ConstPtr& msg);
   void imuCallback(const sensor_msgs::Imu::ConstPtr& msg);
+  void dynamixelCallback(const dynamixel_msgs::JointState::ConstPtr& msg);
   void publishBaseVelocity();
 
 private:
   ros::NodeHandle nh_;
-  ros::Subscriber state_sub_, point_cloud_sub_, command_vel_sub_, imu_sub_;
+  ros::Subscriber state_sub_, point_cloud_sub_, command_vel_sub_, imu_sub_, dynamixel_sub_;
   ros::Publisher  base_velocity_pub_;
   ros::ServiceClient state_client_;
 
@@ -37,14 +40,15 @@ private:
   geometry_msgs::Twist command_velocity_;
   double roll_, pitch_, yaw_;
   double old_roll_, old_pitch_, old_yaw_;
+  double dynamixel_position_;
   std::time_t now_;
   std::time_t past_;
   gecko_msgs::BaseVelocity base_velocity_;
   set_state::pubState state_srv_;
 
   // Constant
-  double WHEEL_RADIUS_;
-  double ROBOT_WIDTH_;
+  static const double WHEEL_RADIUS_ = 0.08; // [m]
+  static const double ROBOT_WIDTH_ = 0.53; // [m]
 
   // Helper function
   void stateTracking();
